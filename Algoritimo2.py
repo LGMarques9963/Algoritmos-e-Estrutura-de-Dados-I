@@ -12,6 +12,11 @@ def calcBExpo(x1,x2,y1,y2):
     b = 10**r
     return b
 
+def calcBPolinomial(x1,x2,y1,y2):
+    r = ( ( math.log10(y2) ) - (math.log10(y1)) ) / ( math.log10(x2) - math.log(x1) )
+    b = 10**r
+    return b
+
 def fibonnaci(n):
     global cont_op
     cont_op+=1
@@ -49,6 +54,19 @@ def f1(n):
                 cont_op+=1
 
     return res
+
+# Algoritmo 3
+def f3(n):
+    global cont_op
+    res = 0;
+    for i in range(1,n*n,2):
+        for j in range(int(i/2),2*i,int(i/2+1) ):
+            for k in range(j+1,n+j,int(k/2+1) ):
+                res = res + abs(j-i)
+                cont_op+=1
+
+    return res
+
 
 values = []
 n = []
