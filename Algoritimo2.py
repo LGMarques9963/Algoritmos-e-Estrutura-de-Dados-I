@@ -2,6 +2,7 @@ cont_op = 0
 import math
 from operator import index
 from matplotlib import pyplot as plt
+import numpy as np
 
 def fitExponencial(op):
     if op == 0: return 0
@@ -141,13 +142,32 @@ def printPoli(n,cont):
     plt.scatter(x,y)
     plt.show()
 
+def save_file(algoritmo,n,cont):
+    caminho = "Algoritmo " + str(algoritmo) + ".txt"
+    
+    for i in range(len(n)):
+        a = str(n[i])
+        b = str(cont[i])
+        fileCompleted = open(caminho, "a+", encoding='utf-8')
+        fileCompleted.write(a + ";" + b + "\n")
+        fileCompleted.close
+
 print("Algoritmo 1")
 n1, cont1 = calcFunction(f1,1,100,1)
+save_file(1,n1,cont1)
+
 print("Algoritmo 2")
 n2, cont2 = calcFunction(f2,1,100,1)
+save_file(2,n2,cont2)
+
 print("Algoritmo 3")
 n3, cont3 = calcFunction(f3,1,100,1)
+save_file(3,n3,cont3)
+
 print("Algoritmo 4")
 n4, cont4 = calcFunction(f4,1,35,1)
+save_file(4,n4,cont4)
+
 print("Algoritmo 5")
 n5, cont5 = calcFunction(f5,1,100,1)
+save_file(5,n5,cont5)
