@@ -8,15 +8,22 @@ def fitExponencial(op):
     if op == 0: return 0
     return math.log10(op)
 
-def calcBExpo(x1,x2,y1,y2):
+def calcBExpo(n,op):
+    x1 = n[0]
+    x2 = n[-1]
+    y1 = op[0]
+    y2 = op[-1]
     r = ( ( math.log10(y2) ) - (math.log10(y1)) ) / ( x2 - x1 )
     b = 10**r
     return b
 
-def calcBPolinomial(x1,x2,y1,y2):
-    r = ( ( math.log10(y2) ) - (math.log10(y1)) ) / ( math.log10(x2) - math.log(x1) )
-    b = r
-    return b
+def calcBPolinomial(n,op):
+    x1 = n[0]
+    x2 = n[-1]
+    y1 = op[0]
+    y2 = op[-1]
+    r = ( ( y2 ) - (y1) ) / ( ( x2) - (x1) )
+    return r
 
 def fibonnaci(n):
     global cont_op
@@ -96,6 +103,8 @@ def f5(n):
 
 #Algoritmo 6
 def f6(n,d):
+    global cont_op
+    cont_op+=1
     if n < 0: return d
     return f6(n -1 , 1 - d ) + f6(n -2 , d )
 
@@ -152,22 +161,56 @@ def save_file(algoritmo,n,cont):
         fileCompleted.write(a + ";" + b + "\n")
         fileCompleted.close
 
-print("Algoritmo 1")
-n1, cont1 = calcFunction(f1,1,100,1)
-save_file(1,n1,cont1)
+def get_file(caminho):
+    retornos = np.genfromtxt(caminho, delimiter=";", dtype="str")
+    return retornos
 
-print("Algoritmo 2")
-n2, cont2 = calcFunction(f2,1,100,1)
-save_file(2,n2,cont2)
+def main(algoritmo):
+    caminho = "Algoritmo "+str(algoritmo)
 
-print("Algoritmo 3")
-n3, cont3 = calcFunction(f3,1,100,1)
-save_file(3,n3,cont3)
+    f = get_file(caminho+".txt")
+    n = [int(i[0]) for i in f]
+    op = [int(i[1]) for i in f]
+    ax = plt.scatter(n,op)
+    plt.show()
+    ax.figure.savefig(caminho+" - original.png")
+    plt.clf()
 
-print("Algoritmo 4")
-n4, cont4 = calcFunction(f4,1,35,1)
-save_file(4,n4,cont4)
+    op = [math.log10(i) for i in op[3:]]
+    n = n[3:]
+    axlog = plt.scatter(n,op)
+    axlog.figure.savefig(caminho+" - logy.png")
+    plt.show()
+    plt.clf()
 
-print("Algoritmo 5")
-n5, cont5 = calcFunction(f5,1,100,1)
-save_file(5,n5,cont5)
+    n = [math.log10(i) for i in n]
+    axlog = plt.scatter(n,op)
+    axlog.figure.savefig(caminho+" - logxlogy.png")
+    plt.show()
+    plt.clf()
+
+    b = calcBPolinomial(n,op)
+    return b
+
+b=[]
+for i in range(1,6):
+    b.append(main(i))
+# print("Algoritmo 1")
+# n1, cont1 = calcFunction(f1,1,100,1)
+# save_file(1,n1,cont1)
+
+# print("Algoritmo 2")
+# n2, cont2 = calcFunction(f2,1,100,1)
+# save_file(2,n2,cont2)
+
+# print("Algoritmo 3")
+# n3, cont3 = calcFunction(f3,1,100,1)
+# save_file(3,n3,cont3)
+
+# print("Algoritmo 4")
+# n4, cont4 = calcFunction(f4,1,35,1)
+# save_file(4,n4,cont4)
+
+# print("Algoritmo 5")
+# n5, cont5 = calcFunction(f5,1,100,1)
+# save_file(5,n5,cont5)
