@@ -58,6 +58,8 @@ def operacoes(p,operacao):
             div_imag = ( (-(a*d))+ (b*c) ) / (den)
             div = (div_real, div_imag)
             p.push(div)
+            tamanho_pilha+=1
+            if tamanho_pilha>max_tam_pilha: max_tam_pilha = tamanho_pilha
         except ZeroDivisionError:
             print("Não é possível dividir por zero")
             p.push(denominador)
@@ -157,25 +159,34 @@ def operacoes(p,operacao):
 
 
 pilha = Pilha()
-tamanho_pilha = 0
-max_tam_pilha = 0
-a = np.genfromtxt("D:\OneDrive - PUCRS - BR\Faculdade\Algoritmos-e-Estrutura-de-Dados-I\Trabalho II - Calculadora Complexos\casos\caso8.txt", delimiter="\n", dtype = "str")
 
-for i in a:
-    try:
-        c,d = i.split(" ")
-        tuple = (int(c),int(d))
-        print(f"Insert: {tuple}\n")
-        pilha.push(tuple)
-        tamanho_pilha+=1
-        if tamanho_pilha>max_tam_pilha: max_tam_pilha = tamanho_pilha
-        print(f"Pilha:\n{pilha}")
-        print("\n")
-    except:
-        print(f"Operacao: {i}\n")
-        if i == "quit":
-            break
-        operacoes(pilha,i)
-        print(f"Pilha:\n{pilha}")
-        print("\n")
-        
+
+
+a = [np.genfromtxt(".\casos\caso"+str(i)+".txt", delimiter="\n", dtype = "str") for i in range(1,9)]
+
+for j in a:
+    tamanho_pilha = 0
+    max_tam_pilha = 0
+    for i in j:
+
+        try:
+            c,d = i.split(" ")
+            tuple = (int(c),int(d))
+            #print(f"Insert: {tuple}\n")
+            pilha.push(tuple)
+            tamanho_pilha+=1
+            if tamanho_pilha>max_tam_pilha: max_tam_pilha = tamanho_pilha
+            #print(f"Pilha:\n{pilha}")
+            #print("\n")
+        except:
+            #print(f"Operacao: {i}\n")
+            if i == "quit":
+                break
+            operacoes(pilha,i)
+            #print(f"Pilha:\n{pilha}")
+            #print("\n")
+    
+    print(pilha)
+    print(f"Tamanho da Pilha: {tamanho_pilha}")
+    print(f"Tamanho Máximo da Pilha: {max_tam_pilha}")
+    print("\n")
