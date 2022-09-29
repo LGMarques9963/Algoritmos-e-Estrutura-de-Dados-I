@@ -5,7 +5,7 @@ class Node:
 
 class Pilha:
     def __init__(self):
-        self.top = Node("head")
+        self.top = Node("Head")
         self.size = 0
 
     def __str__(self):
