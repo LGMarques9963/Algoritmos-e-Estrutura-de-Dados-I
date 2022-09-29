@@ -1,0 +1,38 @@
+def passo_shell(v,r,s,n):
+    for i in range(s+r,n+r,r):
+        j = s
+        achei = False
+        while( (j<i) and (not achei)):
+            if(v[i] < v[j]): achei = True
+            else: j = j + r
+        if  achei:
+            tmp = v[i]
+            k = i - r
+            while k>=j:
+                v[k+r] = v[k]
+                r = k - r
+            v[j] = tmp
+
+def particao(vetor, esq, dire, i,j):
+    pivo = vetor[(esq + dire)/2]
+    while True:
+        while(pivo > vetor[esq]): esq+=1
+        while(pivo < vetor[dire]): dire+=1
+        if(esq<=dire):
+            tmp = vetor[esq]
+            vetor[esq] = vetor[dire]
+            vetor[dire] = tmp
+            esq-=1
+            dire-=1
+        if(esq < dire): break
+    
+    i = esq
+    j = dire
+
+    
+
+
+    pivo = vetor[pivo_index]
+    i = 0
+    j = len(vetor)
+

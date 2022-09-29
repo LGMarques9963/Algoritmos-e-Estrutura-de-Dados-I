@@ -61,7 +61,7 @@ def operacoes(p,operacao):
             tamanho_pilha+=1
             if tamanho_pilha>max_tam_pilha: max_tam_pilha = tamanho_pilha
         except ZeroDivisionError:
-            print("Não é possível dividir por zero")
+            print("Não é possível dividir por zero - Devolvendo dados à pilha")
             p.push(denominador)
             p.push(numerador)
             tamanho_pilha+=2
@@ -186,7 +186,7 @@ for j in a:
             #print(f"Pilha:\n{pilha}")
             #print("\n")
     
-    print(pilha)
+    #print(pilha)
     print(f"Tamanho da Pilha: {tamanho_pilha}")
     print(f"Tamanho Máximo da Pilha: {max_tam_pilha}")
     print("\n")
